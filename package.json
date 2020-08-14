@@ -1,0 +1,24 @@
+{
+    "name": "appticket",
+    "version": "1.0.0",
+    "description": "projeto de teste de um crud",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "GuilhermeRP",
+    "license": "ISC",
+    "dependencies": {
+        "body-parser": "^1.19.0",
+        "cors": "^2.8.5",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "helmet": "^4.0.0",
+        "knex": "^0.21.4",
+        "morgan": "^1.10.0",
+        "pg": "^8.3.0"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.4"
+    }
+}
