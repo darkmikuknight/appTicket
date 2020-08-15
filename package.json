@@ -4,6 +4,7 @@
     "description": "projeto de teste de um crud",
     "main": "server.js",
     "scripts": {
+        "start": "nodemon server.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "GuilhermeRP",
