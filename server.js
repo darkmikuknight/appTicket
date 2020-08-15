@@ -2,7 +2,7 @@ const express = require('express')
 
 require('dotenv').config() //Manter as variáveis sensíveis seguras
 
-const helmet = require('helmet') //Previnir que os headers fiquem seguros
+const helmet = require('helmet') //Previnir para que os headers fiquem seguros
 const bodyParser = require('body-parser')
 const cors = require('cors') //Permitir cross comunicação em sites (front-end e back-end em camadas distintas)
 const morgan = require('morgan') //Logs dos requests
@@ -13,7 +13,7 @@ var db = require('knex')({
         host: '127.0.0.1',
         user: 'postgres',
         password: '123456',
-        database: 'teste'
+        database: 'postgres'
     },
 })
 
@@ -39,7 +39,7 @@ app.use(morgan('combined'))
 //Rotas
 app.get('/', (req, res) => res.send('hello world'))
 app.get('/crud', (req, res) => main.selectDados(req, res, db))
-app.post('/crud2', (req, res) => main.insertDados(req, res, db))
+app.post('/crud', (req, res) => main.insertDados(req, res, db))
 app.put('/crud2', (req, res) => main.updateDados(req, res, db))
 app.delete('/crud2', (req, res) => main.deleteDados(req, res, db))
 
