@@ -3,10 +3,10 @@ import React, { Component } from 'react'
 import { Table, Button } from 'reactstrap';
 import ModalForm from '../Modals/Modal'
 
-class DataTable extends Component {
+class TabelaDados extends Component {
 
-  deleteItem = id => {
-    let confirmDelete = window.confirm('Delete item forever?')
+  deletarItem = id_solicitacao => {
+    let confirmDelete = window.confirm('Deseja deletar o registro?')
     if(confirmDelete){
       fetch('http://localhost:3000/crud', {
       method: 'delete',
@@ -14,12 +14,12 @@ class DataTable extends Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        id
+        id_solicitacao
       })
     })
       .then(response => response.json())
       .then(item => {
-        this.props.deleteItemFromState(id)
+        this.props.deletarItendoEstado(id_solicitacao)
       })
       .catch(err => console.log(err))
     }
@@ -29,20 +29,19 @@ class DataTable extends Component {
   render() {
 
     const items = this.props.items.map(item => {
+
       return (
-        <tr key={item.id}>
-          <th scope="row">{item.id}</th>
-          <td>{item.first}</td>
-          <td>{item.last}</td>
-          <td>{item.email}</td>
-          <td>{item.phone}</td>
-          <td>{item.location}</td>
-          <td>{item.hobby}</td>
+        <tr key={item.id_solicitacao}>
+          <th scope="row">{item.id_solicitacao}</th>
+          <td>{item.solicitante}</td>
+          <td>{item.solicitacao}</td>
+          <td>{item.data}</td>
+          <td>{item.status === true ? 'F' : 'A'}</td>
           <td>
             <div style={{width:"110px"}}>
-              <ModalForm buttonLabel="Edit" item={item} updateState={this.props.updateState}/>
+              <ModalForm buttonLabel="Edit" item={item} updateEstado={this.props.updateEstado}/>
               {' '}
-              <Button color="danger" onClick={() => this.deleteItem(item.id)}>Del</Button>
+              <Button color="danger" onClick={() => this.deletarItem(item.id_solicitacao)}>Del</Button>
             </div>
           </td>
         </tr>
@@ -54,13 +53,10 @@ class DataTable extends Component {
         <thead>
           <tr>
             <th>ID</th>
-            <th>First</th>
-            <th>Last</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Location</th>
-            <th>Hobby</th>
-            <th>Actions</th>
+            <th>Solictante</th>
+            <th>Solicitação</th>
+            <th>Data</th>
+            <th>Status</th>
           </tr>
         </thead>
         <tbody>
@@ -71,4 +67,4 @@ class DataTable extends Component {
   }
 }
 
-export default DataTable
+export default TabelaDados

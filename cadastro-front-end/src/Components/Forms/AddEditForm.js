@@ -1,16 +1,16 @@
 
-import React from 'react';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import React from 'react'
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap'
+import Select from 'react-select'
+
 
 class AddEditForm extends React.Component {
   state = {
-    id: 0,
-    first: '',
-    last: '',
-    email: '',
-    phone: '',
-    location: '',
-    hobby: ''
+    id_solicitacao: 0,
+    solicitante: '',
+    solicitacao: '',
+    data: '',
+    status: ''
   }
 
   onChange = e => {
@@ -25,12 +25,10 @@ class AddEditForm extends React.Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        first: this.state.first,
-        last: this.state.last,
-        email: this.state.email,
-        phone: this.state.phone,
-        location: this.state.location,
-        hobby: this.state.hobby
+        solicitante: this.state.solicitante,
+        solicitacao: this.state.solicitacao,
+        data: this.state.data,
+        status: this.state.status
       })
     })
       .then(response => response.json())
@@ -53,13 +51,11 @@ class AddEditForm extends React.Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        id: this.state.id,
-        first: this.state.first,
-        last: this.state.last,
-        email: this.state.email,
-        phone: this.state.phone,
-        location: this.state.location,
-        hobby: this.state.hobby
+        id_solicitacao: this.state.id_solicitacao,
+        solicitante: this.state.solicitante,
+        solicitacao: this.state.solicitacao,
+        data: this.state.data,
+        status: this.state.status
       })
     })
       .then(response => response.json())
@@ -76,41 +72,45 @@ class AddEditForm extends React.Component {
   }
 
   componentDidMount(){
-    // if item exists, populate the state with proper data
+    //Se existir algum item, então irá setar os dados no estado
+    console.log('llllll')
     if(this.props.item){
-      const { id, first, last, email, phone, location, hobby } = this.props.item
-      this.setState({ id, first, last, email, phone, location, hobby })
+      console.log('llllll')
+      const { id_solicitacao, solicitante, solicitacao, data, status } = this.props.item
+      this.setState({ id_solicitacao, solicitante, solicitacao, data, status })
     }
   }
 
+   
+
   render() {
+
+    console.log('sol=' + this.state.solicitacao)
+    const status = [
+      { value: true, label: 'Fechado' },
+      { value: false, label: 'Aberto' }
+    ];
+
     return (
       <Form onSubmit={this.props.item ? this.submitFormEdit : this.submitFormAdd}>
         <FormGroup>
-          <Label for="first">First Name</Label>
-          <Input type="text" name="first" id="first" onChange={this.onChange} value={this.state.first === null ? '' : this.state.first} />
+          <Label for="solicitante">Solicitante</Label>
+          <Input type="text" name="solicitante" id="solicitante" onChange={this.onChange} value={this.state.solicitante === null ? '' : this.state.solicitante} />
         </FormGroup>
         <FormGroup>
-          <Label for="last">Last Name</Label>
-          <Input type="text" name="last" id="last" onChange={this.onChange} value={this.state.last === null ? '' : this.state.last}  />
+          <Label for="solicitacao">Solicitação</Label>
+          <Input type="text" name="solicitacao" id="solicitacao" onChange={this.onChange} value={this.state.solicitacao === null ? '' : this.state.solicitacao}  />
         </FormGroup>
         <FormGroup>
-          <Label for="email">Email</Label>
-          <Input type="email" name="email" id="email" onChange={this.onChange} value={this.state.email === null ? '' : this.state.email}  />
+          <Label for="data">Data</Label>
+          <Input type="datetime-local" name="data" id="data" onChange={this.onChange} value={this.state.data === null ? '' : this.state.data} />
         </FormGroup>
         <FormGroup>
-          <Label for="phone">Phone</Label>
-          <Input type="text" name="phone" id="phone" onChange={this.onChange} value={this.state.phone === null ? '' : this.state.phone}  placeholder="ex. 555-555-5555" />
+          <Label for="status">Status</Label>
+          <Input type="radio" name="status" id="status" maxLength="1" placeholder="A (aberto) ou F (fechado)" onChange={this.onChange} checked={''}value={this.state.status === null ? 'F' : this.state.status} />
+          <Select options = {status} />
         </FormGroup>
-        <FormGroup>
-          <Label for="location">Location</Label>
-          <Input type="text" name="location" id="location" onChange={this.onChange} value={this.state.location === null ? '' : this.state.location}  placeholder="City, State" />
-        </FormGroup>
-        <FormGroup>
-          <Label for="hobby">Hobby</Label>
-          <Input type="text" name="hobby" id="hobby" onChange={this.onChange} value={this.state.hobby}  />
-        </FormGroup>
-        <Button>Submit</Button>
+        <Button>Cadastrar</Button>
       </Form>
     );
   }

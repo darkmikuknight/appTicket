@@ -1,7 +1,8 @@
 const selectDados = (req, res, db) => {
 
     db.select('*')
-        .from('teste')
+        .from('solicitacao')
+        .orderBy('data', 'asc')
         .then((items) => {
             if (items.length) {
                 res.json(items)
@@ -13,10 +14,12 @@ const selectDados = (req, res, db) => {
 }
 
 const insertDados = (req, res, db) => {
-    const { first, last, email, phone, location, hobby } = req.body
-    const added = new Date()
-    db('teste')
-        .insert({ first, last, email, phone, location, hobby, added })
+
+    console.log('eee');
+    const { solicitante, solicitacao, data, status } = req.body
+    const data_gravacao = new Date()
+    db('solicitacao')
+        .insert({ solicitante, solicitacao, data, status })
         .returning('*')
         .then((item) => {
             res.json(item)
@@ -25,10 +28,10 @@ const insertDados = (req, res, db) => {
 }
 
 const updateDados = (req, res, db) => {
-    const { id, first, last, email, phone, location, hobby } = req.body
-    db('teste')
+    const { solicitante, solicitacao, data, status } = req.body
+    db('solicitacao')
         .where({ id })
-        .update({ first, last, email, phone, location, hobby })
+        .update({  solicitante, solicitacao, data, status })
         .returning('*')
         .then((item) => {
             res.json(item)
@@ -38,7 +41,7 @@ const updateDados = (req, res, db) => {
 
 const deleteDados = (req, res, db) => {
     const { id } = req.body
-    db('teste')
+    db('solicitacao')
         .where({ id })
         .del()
         .then(() => {

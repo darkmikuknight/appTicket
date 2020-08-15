@@ -30,7 +30,7 @@ const corsOptions = {
         }
     },
 }
-
+//
 app.use(helmet())
 app.use(cors(corsOptions))
 app.use(bodyParser.json())
@@ -40,8 +40,8 @@ app.use(morgan('combined'))
 app.get('/', (req, res) => res.send('hello world'))
 app.get('/crud', (req, res) => main.selectDados(req, res, db))
 app.post('/crud', (req, res) => main.insertDados(req, res, db))
-app.put('/crud2', (req, res) => main.updateDados(req, res, db))
-app.delete('/crud2', (req, res) => main.deleteDados(req, res, db))
+app.put('/crud', (req, res) => main.updateDados(req, res, db))
+app.delete('/crud', (req, res) => main.deleteDados(req, res, db))
 
 app.listen(process.env.PORT || 3000, () => {
     console.log(`app is running on port ${process.env.PORT || 3000}`)

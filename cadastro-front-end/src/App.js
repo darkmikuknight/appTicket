@@ -4,7 +4,7 @@
 import React, { Component } from 'react'
 import { Container, Row, Col } from 'reactstrap'
 import ModalForm from './Components/Modals/Modal'
-import DataTable from './Components/Tables/DataTable'
+import TabelaDados from './Components/Tables/DataTable'
 import { CSVLink } from "react-csv"
 
 class App extends Component {
@@ -45,6 +45,7 @@ class App extends Component {
 
   componentDidMount(){
     this.getItems()
+    console.log('items=' + this.getItems())
   }
 
   render() {
@@ -52,12 +53,12 @@ class App extends Component {
       <Container className="App">
         <Row>
           <Col>
-            <h1 style={{margin: "20px 0"}}>CRUD Database</h1>
+            <h1 style={{margin: "20px 0"}}>Cadastro de Solicitações do Suporte</h1>
           </Col>
         </Row>
         <Row>
           <Col>
-            <DataTable items={this.state.items} updateState={this.updateState} deleteItemFromState={this.deleteItemFromState} />
+            <TabelaDados items={this.state.items} updateState={this.updateState} deleteItemFromState={this.deleteItemFromState} />
           </Col>
         </Row>
         <Row>
