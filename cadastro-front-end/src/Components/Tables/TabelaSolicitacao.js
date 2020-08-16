@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { Table, Button } from 'reactstrap';
 import ModalForm from '../Modals/Modal'
 
-class TabelaDados extends Component {
+class TabelaDadosSolicitacao extends Component {
 
   deletarItem = id_solicitacao => {
     let confirmDelete = window.confirm('Deseja deletar o registro?')
@@ -19,11 +19,10 @@ class TabelaDados extends Component {
     })
       .then(response => response.json())
       .then(item => {
-        this.props.deletarItendoEstado(id_solicitacao)
+        this.props.deleteItemFromState(id_solicitacao)
       })
       .catch(err => console.log(err))
     }
-
   }
 
   render() {
@@ -36,12 +35,12 @@ class TabelaDados extends Component {
           <td>{item.solicitante}</td>
           <td>{item.solicitacao}</td>
           <td>{item.data}</td>
-          <td>{item.status === true ? 'F' : 'A'}</td>
+          <td>{item.status === true ? 'Fechado' : 'Aberto'}</td>
           <td>
             <div style={{width:"110px"}}>
-              <ModalForm buttonLabel="Edit" item={item} updateEstado={this.props.updateEstado}/>
+              <ModalForm buttonLabel="Edit" item={item} updateState={this.props.updateState}/>
               {' '}
-              <Button color="danger" onClick={() => this.deletarItem(item.id_solicitacao)}>Del</Button>
+              <Button color="danger" onClick={() => this.deletarItem(item.id_solicitacao)}>Delete</Button>
             </div>
           </td>
         </tr>
@@ -67,4 +66,4 @@ class TabelaDados extends Component {
   }
 }
 
-export default TabelaDados
+export default TabelaDadosSolicitacao

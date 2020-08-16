@@ -1,5 +1,4 @@
-const selectDados = (req, res, db) => {
-
+const selectDadosSolicitacao = (req, res, db) => {
     db.select('*')
         .from('solicitacao')
         .orderBy('data', 'asc')
@@ -13,9 +12,8 @@ const selectDados = (req, res, db) => {
         .catch((err) => res.status(400).json({ dbError: 'db error' }))
 }
 
-const insertDados = (req, res, db) => {
+const insertDadosSolicitacao = (req, res, db) => {
 
-    console.log('eee');
     const { solicitante, solicitacao, data, status } = req.body
     const data_gravacao = new Date()
     db('solicitacao')
@@ -27,10 +25,10 @@ const insertDados = (req, res, db) => {
         .catch((err) => res.status(400).json({ dbError: 'db error' }))
 }
 
-const updateDados = (req, res, db) => {
-    const { solicitante, solicitacao, data, status } = req.body
+const updateDadosSolicitacao = (req, res, db) => {
+    const { id_solicitacao, solicitante, solicitacao, data, status } = req.body
     db('solicitacao')
-        .where({ id })
+        .where({ id_solicitacao })
         .update({  solicitante, solicitacao, data, status })
         .returning('*')
         .then((item) => {
@@ -39,10 +37,10 @@ const updateDados = (req, res, db) => {
         .catch((err) => res.status(400).json({ dbError: 'db error' }))
 }
 
-const deleteDados = (req, res, db) => {
-    const { id } = req.body
+const deleteDadosSolicitacao = (req, res, db) => {
+    const { id_solicitacao } = req.body
     db('solicitacao')
-        .where({ id })
+        .where({ id_solicitacao })
         .del()
         .then(() => {
             res.json({ delete: 'true' })
@@ -50,9 +48,24 @@ const deleteDados = (req, res, db) => {
         .catch((err) => res.status(400).json({ dbError: 'db error' }))
 }
 
+const selectDadosAndamento = (req, res, db) => {
+    db.select('*')
+        .from('andamento')
+        //.orderBy('data', 'asc')
+        .then((items) => {
+            if (items.length) {
+                res.json(items)
+            } else {
+                res.json({ dataExists: 'false' })
+            }
+        })
+        .catch((err) => res.status(400).json({ dbError: 'db error' }))
+}
+
 module.exports = {
-    selectDados,
-    insertDados,
-    updateDados,
-    deleteDados,
+    selectDadosSolicitacao,
+    insertDadosSolicitacao,
+    updateDadosSolicitacao,
+    deleteDadosSolicitacao,
+    selectDadosAndamento,
 }
