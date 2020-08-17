@@ -49,8 +49,10 @@ const deleteDadosSolicitacao = (req, res, db) => {
 }
 
 const selectDadosAndamento = (req, res, db) => {
-    db.select('*')
-        .from('andamento')
+    const { id_solicitacao } = req.body
+   // console.log('maind=' + id_solicitacao)
+    db('andamento')
+        .where('id_solicitacao', 1)
         //.orderBy('data', 'asc')
         .then((items) => {
             if (items.length) {

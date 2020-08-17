@@ -18,13 +18,6 @@ class App extends Component {
       .catch(err => console.log(err))
   }
 
-  getItemsAndamento(){
-    fetch('http://localhost:3000/crud2')
-      .then(response => response.json())
-      .then(items => this.setState({items}))
-      .catch(err => console.log(err))
-  }
-
   addItemToState = (item) => {
     this.setState(prevState => ({
       items: [...prevState.items, item]
@@ -51,7 +44,6 @@ class App extends Component {
 
   componentDidMount(){
     this.getItems()
-   // this.getItemsAndamento()
   }
 
   render() {

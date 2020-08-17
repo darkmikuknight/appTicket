@@ -39,7 +39,7 @@ app.use(morgan('combined'))
 //Rotas
 app.get('/', (req, res) => res.send('hello world'))
 app.get('/crud', (req, res) => main.selectDadosSolicitacao(req, res, db)) 
-app.get('/crud2', (req, res) => main.selectDadosAndamento(req, res, db))
+app.post('/crud2', (req, res) => main.selectDadosAndamento(req, res, db))
 app.post('/crud', (req, res) => main.insertDadosSolicitacao(req, res, db))
 app.put('/crud', (req, res) => main.updateDadosSolicitacao(req, res, db))
 app.delete('/crud', (req, res) => main.deleteDadosSolicitacao(req, res, db))

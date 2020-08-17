@@ -1,14 +1,9 @@
 
 import React from 'react'
-import ReactDOM from 'react-dom';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap'
 import { Container, Row, Col } from 'reactstrap'
-import ModalForm from '../Modals/Modal'
-import Select from 'react-select'
 import Moment from 'moment-timezone'
-import TabelaDadosAndamento from '../Tables/TabelaAndamento'
-import ModalFormAndamento from '../Modals/ModalAndamento'
-import AppAndamento from '../../AppAndamento'
+
 
 class AddEditFormAndamento extends React.Component{
   state = {
@@ -57,7 +52,7 @@ class AddEditFormAndamento extends React.Component{
 
   submitFormEdit = e => {
     e.preventDefault()
-    fetch('http://localhost:3000/crud', {
+    fetch('http://localhost:3000/crud2', {
       method: 'put',
       headers: {
         'Content-Type': 'application/json'

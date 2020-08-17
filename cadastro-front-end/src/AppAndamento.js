@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import { Container, Row, Col } from 'reactstrap'
 import ModalFormAndamento from './Components/Modals/ModalAndamento'
 import TabelaDadosAndamento from './Components/Tables/TabelaAndamento'
-import { CSVLink } from "react-csv"
 //import ModalFormAndamento from './Components/Modals/ModalAndamento'
 
 class AppAndamento extends Component {
@@ -11,11 +10,21 @@ class AppAndamento extends Component {
     items: []
   }
 
-  getItemsAndamento(){
-    fetch('http://localhost:3000/crud2')
+  getItemsAndamento = (id) => {
+    console.log('IDdd=' + id)
+
+    fetch('http://localhost:3000/crud2', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id_solicitacao: id
+      })
+    })
       .then(response => response.json())
       .then(items => this.setState({items}))
-      .catch(err => console.log(err))
+      .catch(err => console.log('get='+err))
   }
 
   addItemToState = (item) => {
@@ -42,8 +51,9 @@ class AppAndamento extends Component {
     this.setState({ items: updatedItems })
   }
 
-  componentDidMount(){
-    this.getItemsAndamento()
+  componentDidMount(id){
+    this.getItemsAndamento(id)
+
   }
 
   render() {
@@ -51,7 +61,7 @@ class AppAndamento extends Component {
       <Container className="App">
         <Row>
           <Col>
-            <h1 style={{margin: "20px 0"}}>Cadastro de Andamentos</h1>
+            <h4 style={{margin: "20px 0"}}>Andamentos</h4>
           </Col>
         </Row>
         <Row>
@@ -61,7 +71,7 @@ class AppAndamento extends Component {
         </Row>
         <Row>
           <Col>
-            <ModalFormAndamento buttonLabel="Add Item" addItemToState={this.addItemToState}/>
+            <ModalFormAndamento buttonLabel="Add Item" id="add-item-andamento" addItemToState={this.addItemToState}/>
           </Col>
         </Row>
       </Container>
